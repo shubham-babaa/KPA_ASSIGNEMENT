@@ -8,11 +8,10 @@ import uuid
 from datetime import date, datetime
 
 router = APIRouter(    
-    prefix="/bogie-checksheet",
+    prefix="",
     tags=["Bogie"],
 )
 
-# Dependency for getting DB session
 
 
 # Utility function to convert all date/datetime to ISO strings in JSON-like objects
