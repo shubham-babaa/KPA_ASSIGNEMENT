@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:  # <== FIXED: moved inside 'services'
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  kpa-backend:
+    container_name: kpa-backend
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - .:/app:z
+    # restart: always
+
+
+
+
+volumes:
+  postgres_data:
